@@ -15,10 +15,9 @@
 
 int main(int argc, char **argv)
 {
-	QApplication a(argc, argv);
-
-	QAsyncTask task;
-
+    QApplication a(argc, argv);
+    
+    QAsyncTask task;
     task.registerTaskReactor("test", [](void *args) {
         QAsyncTaskResult result;
         result.success = true;
@@ -34,7 +33,7 @@ int main(int argc, char **argv)
 
     std::cout << "main thread: " << std::this_thread::get_id() << std::endl ;
 
-	return a.exec();
+    return a.exec();
 }
 
 ```
