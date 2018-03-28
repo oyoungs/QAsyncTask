@@ -18,9 +18,9 @@ public:
     void registerTaskReactor(const QString& name, const std::function<QAsyncTaskResult(void *args)>& reactor);
 
     template<class T>
-    void registerTaskReactor(const QString &name, QAsyncTaskResult (T::*func)(), T *obj) {
-        registerTaskReactor(name, [func](void *obj)-> QAsyncTaskResult {
-            return (static_cast<T *>(obj)->*func)();
+    void registerTaskReactor(const QString &name, QAsyncTaskResult (T::*func)(void *), T *obj) {
+        registerTaskReactor(name, [func, obj](void *args)-> QAsyncTaskResult {
+            return (obj->*func)(args);
         });
     }
 
