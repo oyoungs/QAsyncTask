@@ -33,6 +33,7 @@ public:
     }
 
 
+    ~QAsyncTask();
 
 private:
     QAsyncTaskCreator *_creator;

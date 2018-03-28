@@ -19,3 +19,10 @@ void QAsyncTask::registerTaskReactor(const QString &name, const std::function<QA
 {
     _reactor->registerReactorHandler(name, reactor);
 }
+
+QAsyncTask::~QAsyncTask()
+{
+  delete _creator;
+  delete _reactor;
+}
+
