@@ -5,7 +5,7 @@ add_definitions(-std=c++11)
 set(CMAKE_CXX_FLAGS "-g")
 set(CMAKE_AUTOMOC ON)
 
-find_package(Qt5Widgets 5.6.0 EXACT REQUIRED)
+find_package(Qt5Widgets REQUIRED)
 include_directories(${PROJECT_SOURCE_DIR}/include ${Qt5Widgets_INCLUDE_DIRS})
 
 link_directories(/usr/local/lib)
@@ -25,7 +25,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/bin)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib)
 
 set(QASYNC_SRC_LIST ${SRC_LIST} ${INC_LIST})
-message(${QASYNC_SRC_LIST})
+
 add_library(qasync  ${QASYNC_SRC_LIST})
 target_link_libraries(qasync Qt5::Widgets)
 
