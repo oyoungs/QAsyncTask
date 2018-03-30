@@ -7,6 +7,11 @@
 class QAsyncTaskEvent : public QEvent
 {
 public:
+
+    enum {
+        EventType = QEvent::User + 1000
+    };
+
     QAsyncTaskEvent(const QString& name, void *args);
 
     QString name;

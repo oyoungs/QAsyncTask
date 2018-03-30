@@ -13,20 +13,22 @@ QAsyncTaskReactor::QAsyncTaskReactor(QAsyncTask *task, QObject *parent)
 
 }
 
-bool QAsyncTaskReactor::event(QEvent *event)
+bool QAsyncTaskReactor::event(QEvent *ev)
 {
-    auto taskEvent = (QAsyncTaskEvent *)event;
+    if(ev->type() != QAsyncTaskEvent::EventType) return false;
+    auto taskEvent = (QAsyncTaskEvent *)ev;
     auto name = taskEvent->name;
     auto args = taskEvent->args;
-    auto handler = _handlers[name];
-    if(handler && _task) {
-        std::async(std::launch::async,[this, handler, name, args]{
-            auto result = handler(args);
-            QCoreApplication::postEvent(_task->creator(), new QAsyncTaskResponseEvent(name, result));
-        });
-
+    if(_handlers.contains(name)) {
+        auto handler = _handlers[name];
+        if(handler && _task) {
+            std::async(std::launch::async,[this, handler, name, args]{
+                auto result = handler(args);
+                QCoreApplication::postEvent(_task->creator(), new QAsyncTaskResponseEvent(name, result));
+            });
+        }
     }
-    return true;
+    return QObject::event(ev);
 }
 
 
