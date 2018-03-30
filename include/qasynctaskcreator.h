@@ -17,6 +17,7 @@ public:
     explicit QAsyncTaskCreator(QAsyncTask *task, QObject *parent = 0);
 
     void create(const QString &name, void *args, const QAsyncTaskCallback &callback, int timeout = -1, const QAsyncTaskTimeoutCallback& timeoutCb = nullptr);
+    void setTimeout(int timeout, const std::function<void()>& func);
 
 protected:
     bool event(QEvent *event) override;

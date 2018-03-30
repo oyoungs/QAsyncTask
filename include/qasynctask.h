@@ -26,6 +26,8 @@ public:
         });
     }
 
+    void setTimeout(int timeout, const std::function<void()>& func);
+
     QAsyncTaskCreator *creator() {
         return _creator;
     }

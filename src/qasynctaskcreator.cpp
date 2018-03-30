@@ -23,6 +23,14 @@ void QAsyncTaskCreator::create(const QString &name, void *args, const QAsyncTask
     }
 }
 
+void QAsyncTaskCreator::setTimeout(int timeout, const std::function<void()>& func)
+{
+    if(timeout > 0 && func) {
+        int timer = startTimer(timeout);
+        _timeout_callbacks[timer] = func;
+    } 
+}
+
 bool QAsyncTaskCreator::event(QEvent *ev)
 {
     if(ev->type() == QAsyncTaskResponseEvent::EventType) {

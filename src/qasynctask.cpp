@@ -20,6 +20,10 @@ void QAsyncTask::registerTaskReactor(const QString &name, const std::function<QA
     _reactor->registerReactorHandler(name, reactor);
 }
 
+void QAsyncTask::setTimeout(int timeout, const std::function<void()>& func)
+{
+  _creator->setTimeout(timeout, func);
+}
 
 QAsyncTask::~QAsyncTask()
 {
