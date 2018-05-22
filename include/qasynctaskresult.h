@@ -2,11 +2,12 @@
 #define QASYNCTASKRESULT_H
 
 #include <QString>
+#include "qasynctaskargs.h"
 
 struct QAsyncTaskResult {
     bool success;
     QString message;
-    void *userData;
+    QAsyncTaskArgs userData;
 };
 
 #endif // QASYNCTASKRESULT_H

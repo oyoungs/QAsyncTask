@@ -3,6 +3,7 @@
 
 #include <QEvent>
 #include <QString>
+#include "qasynctaskargs.h"
 
 class QAsyncTaskEvent : public QEvent
 {
@@ -12,10 +13,10 @@ public:
         EventType = QEvent::User + 1000
     };
 
-    QAsyncTaskEvent(const QString& name, void *args);
+    QAsyncTaskEvent(const QString& name, const QAsyncTaskArgs& args);
 
     QString name;
-    void *args;
+    QAsyncTaskArgs args;
 
 };
 

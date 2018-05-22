@@ -9,21 +9,17 @@ QAsyncTask::QAsyncTask()
 
 }
 
-void QAsyncTask::createTask(const QString &name, void *args, const std::function<void (const QAsyncTaskResult &)> &callback, int timeout, const std::function<void()>& timeoutCb)
+void QAsyncTask::createTask(const QString &name, const QAsyncTaskArgs& args, const ResultHandle &callback, int timeout, const TimeoutHandle& timeoutCb)
 {
     _creator->create(name, args, callback, timeout, timeoutCb);
 }
 
 
-void QAsyncTask::registerTaskReactor(const QString &name, const std::function<QAsyncTaskResult (void *)> &reactor)
+void QAsyncTask::registerTaskReactor(const QString &name, const ReactorHandle &reactor)
 {
     _reactor->registerReactorHandler(name, reactor);
 }
 
-void QAsyncTask::setTimeout(int timeout, const std::function<void()>& func)
-{
-  _creator->setTimeout(timeout, func);
-}
 
 QAsyncTask::~QAsyncTask()
 {

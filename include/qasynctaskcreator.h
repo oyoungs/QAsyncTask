@@ -3,6 +3,8 @@
 
 #include <QMap>
 #include <QObject>
+
+#include "qasynctaskargs.h"
 #include "qasynctaskresult.h"
 
 #include <functional>
@@ -16,8 +18,7 @@ public:
     typedef std::function<void()> QAsyncTaskTimeoutCallback;
     explicit QAsyncTaskCreator(QAsyncTask *task, QObject *parent = 0);
 
-    void create(const QString &name, void *args, const QAsyncTaskCallback &callback, int timeout = -1, const QAsyncTaskTimeoutCallback& timeoutCb = nullptr);
-    void setTimeout(int timeout, const std::function<void()>& func);
+    void create(const QString &name, const QAsyncTaskArgs &args, const QAsyncTaskCallback &callback, int timeout = -1, const QAsyncTaskTimeoutCallback& timeoutCb = nullptr);
 
 protected:
     bool event(QEvent *event) override;
@@ -26,6 +27,7 @@ protected:
 private:
     QAsyncTask *_task;
     QMap<QString, QAsyncTaskCallback> _callbacks;
+    QMap<QString, int> _timeout_timers;
     QMap<int, QAsyncTaskTimeoutCallback> _timeout_callbacks;
 };
 

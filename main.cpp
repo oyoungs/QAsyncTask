@@ -11,7 +11,7 @@ int main(int argc, char *argv[])
     QAsyncTask task;
     QApplication a(argc, argv);
 
-    task.registerTaskReactor("test", [](void *args) {
+    task.registerTaskReactor("test", [](const QAsyncTaskArgs& rgs) {
         QAsyncTaskResult result;
         result.success = true;
         result.message = "Success";
@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
         return result;
     });
 
-    task.createTask("test", nullptr, [](const QAsyncTaskResult& result) {
+    task.createTask("test", QAsyncTaskArgs{}, [](const QAsyncTaskResult& result) {
         std::cout  << (result.success ? "successful": "failed") << std::endl;
         std::cout << "callback thread:" << std::this_thread::get_id() << std::endl;
     });

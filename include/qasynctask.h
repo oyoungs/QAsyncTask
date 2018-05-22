@@ -4,6 +4,8 @@
 #include <QString>
 #include <functional>
 
+
+#include "qasynctaskargs.h"
 #include "qasynctaskresult.h"
 
 class QAsyncTaskCreator;
@@ -13,20 +15,22 @@ class QAsyncTask
 public:
     QAsyncTask();
 
+    typedef std::function<QAsyncTaskResult(const QAsyncTaskArgs&)> ReactorHandle;
+    typedef std::function<void(const QAsyncTaskResult&)> ResultHandle;
+    typedef std::function<void()> TimeoutHandle;
+
     static QAsyncTask& global();
 
-    void createTask(const QString& name, void *args, const std::function<void(const QAsyncTaskResult&)>& callback, int timeout = -1, const std::function<void()>& timeoutCb = nullptr);
+    void createTask(const QString& name, const QAsyncTaskArgs& args, const ResultHandle& callback, int timeout = -1, const TimeoutHandle& timeoutCb = nullptr);
 
-    void registerTaskReactor(const QString& name, const std::function<QAsyncTaskResult(void *args)>& reactor);
+    void registerTaskReactor(const QString& name, const ReactorHandle& reactor);
 
-    template<class T>
-    void registerTaskReactor(const QString &name, QAsyncTaskResult (T::*func)(void *), T *obj) {
-        registerTaskReactor(name, [func, obj](void *args)-> QAsyncTaskResult {
-            return (static_cast<T *>(obj)->*func)(args);
+    template<class T, QAsyncTaskResult (T::*func)(const QAsyncTaskArgs&)>
+    void registerTaskReactor(const QString &name, T *obj) {
+        registerTaskReactor(name, [=](const QAsyncTaskArgs& args)-> QAsyncTaskResult {
+            return (obj->*func)(args);
         });
     }
-
-    void setTimeout(int timeout, const std::function<void()>& func);
 
     QAsyncTaskCreator *creator() {
         return _creator;
