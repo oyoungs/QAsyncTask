@@ -4,7 +4,7 @@
 ## usage:
 1. include the header file qasynctask.h
 2. add library libqasync to the project, eg. -lqasync
-3. sample code 
+3. example code 
 
 ```cpp
 
