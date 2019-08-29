@@ -20,6 +20,9 @@
     </property>
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout">
+      <property name="spacing">
+       <number>0</number>
+      </property>
       <item>
        <widget class="QPushButton" name="btLoad">
         <property name="text">
@@ -31,6 +34,9 @@
        <widget class="QLabel" name="lblHttp">
         <property name="text">
          <string>http://</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
       </item>

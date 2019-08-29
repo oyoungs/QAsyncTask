@@ -7,7 +7,7 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 
 find_package(Qt5Widgets REQUIRED)
-find_package(Qt5Network REQUIRED)
+#find_package(Qt5Network REQUIRED)
 include_directories(
 		${PROJECT_SOURCE_DIR}/include
 		${Qt5Widgets_INCLUDE_DIRS}
@@ -33,7 +33,10 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib)
 set(QASYNC_SRC_LIST ${SRC_LIST} ${INC_LIST})
 
 add_library(qasync  ${QASYNC_SRC_LIST})
-target_link_libraries(qasync Qt5::Widgets Qt5::Network)
+target_link_libraries(qasync
+		Qt5::Widgets
+#		Qt5::Network
+		)
 
 add_executable(main
 		demo/mainwindow.ui

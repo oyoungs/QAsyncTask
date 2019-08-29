@@ -2,14 +2,10 @@
 
 #include "mainwindow.h"
 #include "qasynctask.h"
+
+#include <QUrl>
 #include <QApplication>
 #include <QDesktopWidget>
-#include <QNetworkReply>
-#include <QNetworkRequest>
-#include <QNetworkAccessManager>
-#include <QUrl>
-#include <QFile>
-#include <QThread>
 
 int main(int argc, char *argv[])
 {
